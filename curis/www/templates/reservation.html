@@ -1,0 +1,32 @@
+
+<ion-view  class="start-background "  padding="false" >
+
+  <ion-nav-title class="light">Reserver</ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button button-clear button-icon icon ion-minus-circled" ng-click="data.showDelete =
+        !data.showDelete"></button>
+  </ion-nav-buttons>
+  <ion-content >
+
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="showData()">
+    </ion-refresher>
+
+      <ion-list show-Delete = "data.showDelete" >
+        <ion-item ng-click="chargerFormation(r.id);"  ng-repeat="r in reservations" class="item-remove-animate item item-thumbnail-left  " type="item-text-wrap">
+
+
+          <img ng-src="data:image/png;base64,{{r.photo}}" />
+          <p> Le: {{r.dt}} <n/> A: {{r.tp}} </p>
+          <p>{{r.nomPatient}}</p>
+          <p>   <font size="2" color="green" > avec le medecin: {{r.nom}} </font></p>
+
+          <ion-delete-button class=" button button-clear ion-minus-circled" ng-click="delete(r);"></ion-delete-button>
+
+        </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-view>
+

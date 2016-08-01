@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet"/>
+    <link href="lib/ionic-material/dist/ionic.material.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
+
+    <!--angularFire/ Firebase (Aouth) -->
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.min.js"></script>
+
+   <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="http://maps.google.com/maps/api/js?key= AIzaSyBoX8ETj9aKRgHY-hvFaPlHv9o5Mh_T-p8"></script>
+    <script src="build/js/app.bundle.js"></script>
+  </head>
+  <body ng-app="starter" class="deepblue-theme">
+  <ion-side-menus >
+    <ion-side-menu-content drag-content="false">
+      <ion-nav-bar class="colorbtn">
+        <ion-nav-back-button class="no-text">
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+
+        </ion-nav-buttons>
+      </ion-nav-bar>
+      <ion-nav-view ></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+      <ion-header-bar class="expanded ">
+        <div ng-controller="loginCtrl">
+        <div ng-if="authData.facebook" >
+        <img ng-src="{{authData.facebook.profileImageURL}}" alt="authData.facebook.displayName" class="avatar motion spin fade"><br/>
+          <div class="menu-bottom colortext">
+            {{authData.facebook.displayName}}
+          </div>
+        </div>
+        </div>
+
+      </ion-header-bar>
+      <ion-content class="stable-bg login-background has-expanded-header">
+        <ion-list>
+          <ion-item menu-close ui-sref="Home" class="item-icon-left"> <i class="icon ion-happy text-center"></i>Home</ion-item>
+          <ion-item menu-close ui-sref="medecins" class="item-icon-left"><i class="icon ion-person text-center"></i>Medecins</ion-item>
+          <ion-item menu-close ui-sref="geo" class="item-icon-left"><i class="icon ion-map text-center"></i>Geolocalisation</ion-item>
+          <ion-item menu-close ui-sref="reservation" class="item-icon-left"><i class="icon ion-clipboard text-center"></i>Reservations</ion-item>
+          <div ng-controller="HomeCtrl">
+          <ion-item menu-close ng-click="logout()" class="item-icon-left"><i class="icon ion-log-out text-center"></i>Logout</ion-item>
+          </div>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
+
+
+  </body>
+</html>

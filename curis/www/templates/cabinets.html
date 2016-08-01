@@ -1,0 +1,30 @@
+<ion-view  class="start-background">
+  <ion-nav-title class="light">Reserver</ion-nav-title>
+  <ion-content >
+
+  <ion-content>
+    <div ng-controller="cabinetsCtrl" >
+      <form name="addinvoice" method="post">
+
+        <div class="list">
+              <label class="item item-input item-floating-label">
+                <span class="input-label">Nom</span>
+                <input type="text" placeholder="Entrez Votre nom s'il vous plait" ng-model="cabinetsCtrl.nom" name="nom">
+              </label>
+
+              <label class="item item-input item-floating-label">
+                <span class="input-label">Date</span>
+                <input type="date" data-date="" data-date-format="DD-MMMM-YYYY" name="dt" id="date" ng-model="cabinetsCtrl.code" placeholder="Date">
+              </label>
+
+              <label class="item item-input item-floating-label">
+                <span class="input-label">Heure</span>
+                <input type="time" data-date="" data-date-format=" HH:MM" name="tp" id="time" ng-model="cabinetsCtrl.code" placeholder="Heure" >
+              </label>
+              <button class="button button-balanced colorbtn button-block light" data-ng-click="addNewInvoice()" name="add">Ajouter reservation</button>
+      </div>
+        </form>
+      </div>
+  </ion-content>
+
+</ion-view>

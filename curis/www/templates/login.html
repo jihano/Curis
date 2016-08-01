@@ -1,0 +1,38 @@
+<ion-view hide-nav-bar="true" class="login-background" >
+
+  <!-- in our custom header bar we give a link to start screen -->
+
+
+  <ion-content class="has-header has-footer padding full-height text-center">
+
+    <img src="img/logo.gif"  height="150px" width="200px" >
+
+    <label class="item item-input">
+      <input type="text" placeholder="email">
+    </label>
+    <label class="item item-input">
+      <input type="password" placeholder="password">
+    </label>
+
+    <button class="button button-full colorbtn center "  ng-click="login('facebook')" ><p class="light icon ion-social-facebook"></p>
+    </button>
+
+
+
+
+    <div ng-controller="loginCtrl">
+
+
+
+      <div ng-if="authData.facebook" >
+
+        <button class="button button-block button-balanced" ng-click="loghome()"><i>{{authData.facebook.displayName}}</i> Entrez!</button>
+      </div>
+    </div>
+
+
+  </ion-content>
+
+
+</ion-view>
+

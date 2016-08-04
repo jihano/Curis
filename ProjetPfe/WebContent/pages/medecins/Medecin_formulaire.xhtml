@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="Medecin"  rendered="#{emploiTempBean.ET != null}">
+<p:panelGrid columns="2">
+<h:outputLabel value="heur debut:" />
+<p:spinner value="#{emploiTempBean.ET.heurDebut}" min="1" stepFactor="1" size="24"></p:spinner>
+<h:outputLabel value="Min debut:" />
+<p:spinner value="#{emploiTempBean.ET.minDebut}" min="1" stepFactor="1" size="60"></p:spinner>
+<h:outputLabel value="heur Fin:" />
+<p:spinner value="#{emploiTempBean.ET.heurFin}" min="1" stepFactor="1" size="24"></p:spinner>
+<h:outputLabel value="min Fin:" />
+<p:spinner value="#{emploiTempBean.ET.minFin}" min="1" stepFactor="1" size="60"></p:spinner>
+
+<h:outputLabel value="type:" />
+<p:selectOneMenu value="#{emploiTempBean.ET.jour}">
+<f:selectItem itemLabel=":: selectionner ::" itemValue="#{null}"/>
+<f:selectItems value="#{emploiTempBean.jours}" var="jour" itemLabel="#{jour.label}" itemValue="#{jour}"/>
+</p:selectOneMenu>
+
+</p:panelGrid>
+<br/>
+<p:commandButton icon="save-icon" value="save" action="#{emploiTempBean.save()}" update="medecin_form" id="save-btn"></p:commandButton>
+<p:commandButton icon="undo-icon" value="Cancel" immediate="true" update="medecin_form" action="#{emploiTempBean.cancel()}"/>
+
+</p:panel>
+
+
+</html>

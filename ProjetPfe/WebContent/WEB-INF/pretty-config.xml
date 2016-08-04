@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.3" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.3
+   http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+   
+    <url-mapping id="operationsupport">
+   	<pattern value="/medecin/operation/support/" />
+   	<view-id value="/pages/operations/operation_wrapper.jsf"/>
+   	<action onPostback="false">#{operationBean.iniciarBean}</action>
+   </url-mapping>
+   
+       <url-mapping id="dashmedsupport">
+   	<pattern value="/medecin/dash/support/" />
+   	<view-id value="/pages/dashMed/dash_wrapper.jsf"/>
+   	<action onPostback="false">#{rendezvousBean.iniciarBean}</action>
+   </url-mapping>
+   
+       <url-mapping id="emtpsupport">
+   	<pattern value="/medecin/emploitp/support/" />
+   	<view-id value="/pages/medecins/medecin_wrapper.jsf"/>
+   	<action onPostback="false">#{emploiTempBean.iniciarBean}</action>
+   </url-mapping>
+   
+    <url-mapping id="rdvsupport">
+   	<pattern value="/medecin/rendezvs/support/" />
+   	<view-id value="/pages/rendezvous/rd_wrapper.jsf"/>
+   	<action onPostback="false">#{rendezvousBean.iniciarBean}</action>
+   </url-mapping>
+     <url-mapping id="userClinique">
+   	<pattern value="/cabinet/userClinique/support/" />
+   	<view-id value="/pages/users/Cliniques/userClinique_wrapper.jsf"/>
+   	
+   </url-mapping>
+   
+      <url-mapping id="positionClinique">
+   	<pattern value="/cabinet/positionClinique/support/" />
+   	<view-id value="/pages/position/position_wrapper.jsf"/>
+   	<action onPostback="false">#{positionBean.iniciarBean}</action>
+   </url-mapping>
+   
+    <url-mapping id="userMedecin">
+   	<pattern value="/cabinet/userMedecin/support/" />
+   	<view-id value="/pages/users/medecins/userMedecin_wrapper.jsf"/>
+   	<action onPostback="false">#{userMedecinBean.iniciarBean}</action>
+   </url-mapping>
+   
+    <url-mapping id="dashboard">
+   	<pattern value="/cabinet/dashboard/support/" />
+   	<view-id value="/pages/dashboard/dash_wrapper.jsf"/>
+   	<action onPostback="false">#{userCliniqueBean.iniciarBean}</action>
+   </url-mapping>
+</pretty-config>

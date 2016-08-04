@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="Operations" id="list-operation-panel" rendered="#{operationBean.operation != null}">
+<p:panelGrid columns="2">
+<h:outputLabel value="Nom: " />
+<p:inputText  value="#{operationBean.operation.nom}" 
+required="true" requiredMessage="entrer le nom svp"></p:inputText>
+<h:outputLabel value="description: " />
+<h:inputTextarea value="#{operationBean.operation.description}" cols="40" rows="3"/>
+<h:outputLabel value="durée:" />
+<p:spinner value="#{operationBean.operation.duree}" min="1" stepFactor="0.5" size="2"></p:spinner>
+<h:outputLabel value="Date de l'operation" />
+<p:calendar value="#{operationBean.operation.dateOp}" pattern="dd/MM/yyyy" maxdate="#{operationBean.dateActuel}"/>
+</p:panelGrid>
+<br/>
+<p:commandButton icon="save-icon" value="save" action="#{operationBean.save}" update="@form" id="save-btn"></p:commandButton>
+<p:commandButton icon="undo-icon" value="Cancel" action="#{operationBean.cancel}" immediate="true" update="@form"/>
+
+</p:panel>
+
+
+</html>

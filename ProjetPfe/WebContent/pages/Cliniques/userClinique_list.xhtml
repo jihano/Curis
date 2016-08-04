@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="List users"  rendered="#{userCliniqueBean.userClinique eq null}">
+<p:commandButton  icon="add-icon" value="nouveau medecin" action="#{userCliniqueBean.nouvelleClinique()}" update="userClinique_form"></p:commandButton>
+<p:outputLabel value="#{authenticationContext.getUsuarioLogado().getNom()}"></p:outputLabel>
+<p:dataTable value="#{userCliniqueBean.usersClinique}" var="users"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+			<p:column style="text-align:center">
+<p:graphicImage value="#{userCliniqueBean.imageMedecin}" width="60"
+height="60" cache="false" rendered="#{users.photo != null}">
+		<f:facet name="id_C" value="#{users.id}" />
+</p:graphicImage>
+</p:column>
+
+<p:column  sortBy="#{users.nom}" filterBy="#{users.nom}" filterMatchMode="contains">
+	<h:outputLink id="photo" value="#">
+				<h:outputText value="#{users.nom}" />
+			</h:outputLink>
+	<p:tooltip id="toolTipFoto" for="photo" 
+				showEffect="clip" hideEffect="slide" >
+				<p:graphicImage value="#{userCliniqueBean.imageMedecin}" width="180"
+					height="180" cache="false" rendered="#{users.photo != null}">
+					<f:param name="id_C" value="#{users.id}" />
+				</p:graphicImage>
+				<h:outputText value="pas de Photo" rendered="#{users.photo == null}"/>
+			</p:tooltip>
+</p:column>
+			<p:column headerText="Login">
+				<h:outputText value="#{users.login}"/>
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{users.email}"/>
+			</p:column>
+			<p:column headerText="Ative" width="80">
+				<h:outputText value="#{users.active ? 'Yes' : 'No'}"/>
+			</p:column>
+			<p:column width="50">
+			<p:commandLink action="#{userCliniqueBean.edit(users)}"  style="color:blue;" update="userClinique_form">
+			<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+			</p:commandLink>
+					
+			</p:column>
+		</p:dataTable>	
+
+</p:panel>
+
+</html>

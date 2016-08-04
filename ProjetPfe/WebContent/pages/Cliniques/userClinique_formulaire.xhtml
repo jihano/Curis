@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="users" id="list-userClinique-panel" rendered="#{userCliniqueBean.userClinique != null}">
+
+<p:panelGrid columns="2" style="margin-bottom:10px;">
+			
+						<h:outputLabel value="image: " />
+					<p:fileUpload fileUploadListener="#{userCliniqueBean.enviarFoto}"  auto="false" label="Parcourir.."
+					update="pg-text-preview pg-image-preview" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+					invalidFileMessage="Format invalide" multiple="true" sizeLimit="1000000" dragDropSupport="true" mode="advanced" />
+			
+				<h:panelGroup id="pg-text-preview">
+				<h:outputLabel value="Preview: " rendered="#{userCliniqueBean.userClinique.photo != null}"/>
+				</h:panelGroup>
+			<h:panelGroup id="pg-image-preview">
+					<p:graphicImage  value="#{userCliniqueBean.userClinique.image}" cache="false" style="width:100px; height:100px;" rendered="#{userCliniqueBean.userClinique.photo != null}" ></p:graphicImage>
+			</h:panelGroup>
+			<h:outputLabel value="Nom:"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.nom}" size="30"/>
+			<h:outputLabel value="Email"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.email}" size="30"/>
+			<h:outputLabel value="Logo"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.logo}"/>
+			<h:outputLabel value="Ative:"/>
+			<p:selectBooleanCheckbox value="#{userCliniqueBean.userClinique.active}"/>
+		</p:panelGrid>
+		
+		<p:commandButton value="Save" icon="save-icon" action="#{userCliniqueBean.save()}"
+			update="userClinique_form"/>
+		<p:commandButton value="Cancel" icon="undo-icon" action="#{userCliniqueBean.cancel()}"
+			update="userClinique_form" style="margin-left:8px;"/>
+
+
+</p:panel>
+
+
+</html>

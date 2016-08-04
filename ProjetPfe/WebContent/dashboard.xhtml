@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="../../resources/js/googlechart.js"></script>  
+    </h:head>
+    <h:body>
+		<p:panel>
+		   <p:carousel value="#{rendezvousBean.listerv}" headerText="Responsive" var="car" itemStyle="text-align:center"  responsive="true">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                <p:graphicImage name="images/1.png"/> 
+            </f:facet>
+      </p:panelGrid>
+ 
+        <f:facet name="footer">
+                In total there are #{fn:length(rendezvousBean.listerv)} cars.
+        </f:facet>
+    </p:carousel>
+    </p:panel>
+</h:body>			
+</html>

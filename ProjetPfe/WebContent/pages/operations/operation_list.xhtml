@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="list operation" >
+<p:commandButton icon="add-icon" value="nouvelles operation" action="#{operationBean.nouvelleOperation()}"
+update="@form" process="@this">
+ </p:commandButton><br/><br/>
+<p:dataTable value="#{operationBean.operations}" var="operations"
+paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-operation" filteredValue="#{operationBean.operationFilter}">
+	<p:column headerText="Nom" sortBy="#{operations.nom}" filterBy="#{operations.nom}"
+	filterMatchMode="contains">
+		<h:outputText value="#{operations.nom}" />
+	</p:column>
+	
+		<p:column headerText="Description">
+		<h:outputText value="#{operations.description}" />
+	</p:column>
+		<p:column headerText="Durée">
+		<h:outputText value="#{operations.duree}" /> <h:outputLabel value="-"></h:outputLabel> <h:outputLabel value="  min" />
+	</p:column>
+
+	
+	<p:column style="text-align:center;" exportable="false">
+		<p:commandLink action="#{operationBean.edit(operations)}"  style="color:blue;" update="operation_form">
+			<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+		</p:commandLink>
+		
+		<p:commandLink  actionListener="#{operationBean.preparerSuppression(operations)}" oncomplete="PF('ConfirmationSupprimer').show();"  style="color:red; margin-left:20px" update="@form">
+		<p:graphicImage value="/resources/images/icon-delete.png"></p:graphicImage>
+		</p:commandLink>
+
+	</p:column>
+
+
+
+</p:dataTable>
+<br/>
+ <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_xls.png"/>
+                <p:dataExporter type="xls" target="table-operation" fileName="operations" />
+    </h:commandLink>
+
+	 <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_pdf.png"></p:graphicImage>
+                <p:dataExporter type="pdf" target="table-operation" fileName="cours" encoding="iso-8859-1"/>
+    </h:commandLink>
+
+<p:confirmDialog
+ message="voulez vous vraiment supprimer l'element #{operationBean.operationSupp.nom}?"
+widgetVar="ConfirmationSupprimer">
+<p:commandButton value="Oui" action="#{operationBean.delete()}" oncomplete="PF('ConfirmationSupprimer').hide();" update="@form"/>
+<p:commandButton value="Non" oncomplete="PF('ConfirmationSupprimer').hide();" ></p:commandButton>
+</p:confirmDialog>
+
+</p:panel>
+<p:panel header="Operations" id="list-operation-panel" rendered="#{operationBean.operation != null}">
+<p:panelGrid columns="2">
+<h:outputLabel value="Nom: " />
+<p:inputText  value="#{operationBean.operation.nom}" 
+required="true" requiredMessage="entrer le nom svp"></p:inputText>
+<h:outputLabel value="description: " />
+<h:inputTextarea value="#{operationBean.operation.description}" cols="40" rows="3"/>
+<h:outputLabel value="durée:" />
+<p:spinner value="#{operationBean.operation.duree}" min="1" stepFactor="0.5" size="2"></p:spinner>
+</p:panelGrid>
+<br/>
+<p:commandButton icon="save-icon" value="Enregister" action="#{operationBean.save}" update="@form" id="save-btn"></p:commandButton>
+
+<p:commandButton icon="undo-icon" value="Annuler" action="#{operationBean.cancel}" immediate="true" update="@form"/>
+
+</p:panel>
+
+
+</html>

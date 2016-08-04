@@ -1,0 +1,65 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
+
+<p:panel header="Medecin" >
+		<p:commandButton icon="add-icon" value="Ajouter"  action="#{emploiTempBean.nouveauET()}" update="medecin_form"
+		 >
+		 </p:commandButton><br/><br/>
+		<p:dataTable value="#{emploiTempBean.listET}" var="emtp"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+		<p:column headerText="Jour">
+	<h:outputText value="#{emtp.jour.label}" />
+</p:column>
+		
+		<p:column headerText="début">
+			<h:outputText value="#{emtp.heurDebut}" /> <p:outputLabel value="h "></p:outputLabel> <h:outputText value="#{emtp.minDebut}" /> <p:outputLabel value=" min"></p:outputLabel>
+		</p:column>
+		<p:column headerText="Fin">
+			<h:outputText value="#{emtp.heurFin}"  /> <p:outputLabel value="h "></p:outputLabel> <h:outputText value="#{emtp.minFin}" /> <p:outputLabel value=" min"></p:outputLabel>
+		</p:column>
+	
+
+		<p:column style="text-align:center;" exportable="false">
+		<p:commandLink action="#{emploiTempBean.update(emtp)}"  style="color:blue;">
+		<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+		</p:commandLink>
+		<p:commandLink  actionListener="#{emploiTempBean.preparerSuppression(emtp)}" oncomplete="PF('ConfirmationSupprimer').show();"  style="color:red; margin-left:20px" update="@form">
+		<p:graphicImage value="/resources/images/icon-delete.png"></p:graphicImage>
+		
+		</p:commandLink>
+		
+		</p:column>
+		
+		</p:dataTable>
+
+		
+</p:panel>
+
+<p:panel header="Medecin"  rendered="#{emploiTempBean.ET != null}">
+<p:panelGrid columns="2">
+<h:outputLabel value="heure de début:" />
+<p:spinner value="#{emploiTempBean.ET.heurDebut}" min="1" stepFactor="1" size="24"></p:spinner>
+<h:outputLabel value="à la minute:" />
+<p:spinner value="#{emploiTempBean.ET.minDebut}" min="1" stepFactor="1" size="24"></p:spinner>
+<h:outputLabel value="heure fin:" />
+<p:spinner value="#{emploiTempBean.ET.heurFin}" min="1" stepFactor="1" size="24"></p:spinner>
+<h:outputLabel value="à la minute:" />
+<p:spinner value="#{emploiTempBean.ET.minFin}" min="1" stepFactor="1" size="24"></p:spinner>
+
+<h:outputLabel value="Jour:" />
+<p:selectOneMenu value="#{emploiTempBean.ET.jour}" size="24">
+<f:selectItem itemLabel=":: selectionner ::" itemValue="#{null}"/>
+<f:selectItems value="#{emploiTempBean.jours}" var="jour" itemLabel="#{jour.label}" itemValue="#{jour}"/>
+</p:selectOneMenu>
+
+</p:panelGrid>
+<br/>
+<p:commandButton icon="save-icon" value="Enregister" action="#{emploiTempBean.save()}" update="medecin_form" id="save-btn"></p:commandButton>
+<p:commandButton icon="undo-icon" value="Annuler" immediate="true" update="medecin_form" action="#{emploiTempBean.cancel()}"/>
+
+</p:panel>
+
+
+</html>

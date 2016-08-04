@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+     >
+
+<p:panel header="RV">
+		
+		<p:dataTable value="#{rendezvousBean.listerv}" var="emtp"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+		 
+			<p:column headerText="date">
+	<h:outputText value="#{emtp.dateRd}" >
+		<f:convertDateTime pattern="dd/MM/yyyy"/>
+	</h:outputText>
+	</p:column>
+			<p:column headerText="heur">
+	<h:outputText value="#{emtp.dateRd}" >
+		<f:convertDateTime pattern="HH:mm"/>
+	</h:outputText>
+</p:column>
+		
+		
+		
+		<p:column style="text-align:center;" exportable="false">
+		<p:commandLink action="#{emploiTempBean.update(emtp)}"  style="color:blue;">
+		<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+		</p:commandLink>
+		<p:commandLink  actionListener="#{emploiTempBean.preparerSuppression(emtp)}" oncomplete="PF('ConfirmationSupprimer').show();"  style="color:red; margin-left:20px" update="dash_form">
+		<p:graphicImage value="/resources/images/icon-delete.png"></p:graphicImage>
+		
+		</p:commandLink>
+		
+		</p:column>
+		
+		</p:dataTable>
+</p:panel>
+	
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="List des Medecins"  >
+<p:commandButton  icon="add-icon" value="nouveau medecin" action="#{userCliniqueBean.nouvelleClinique()}" update="userClinique_form"></p:commandButton> <br/> <br/>
+<p:dataTable value="#{userCliniqueBean.usersClinique}" var="users"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+			<p:column style="text-align:center" width="200">
+<p:graphicImage value="#{userCliniqueBean.imageCabinet}" width="60"
+height="60" cache="false" rendered="#{users.photo != null}">
+		<f:param name="id_C" value="#{users.id}" />
+</p:graphicImage>
+</p:column>
+
+<p:column  sortBy="#{users.nom}" filterBy="#{users.nom}" filterMatchMode="contains" width="200">
+	<h:outputLink id="photo" value="#" >
+				<h:outputText value="#{users.nom}" />
+			</h:outputLink>
+	<p:tooltip id="toolTipFoto" for="photo" 
+				showEffect="clip" hideEffect="slide" >
+				<p:graphicImage value="#{userCliniqueBean.imageCabinet}" width="180"
+					height="180" cache="false" rendered="#{users.photo != null}">
+					<f:param name="id_C" value="#{users.id}" />
+				</p:graphicImage>
+				<h:outputText value="pas de Photo" rendered="#{users.photo == null}"/>
+			</p:tooltip>
+</p:column>
+			<p:column headerText="Login" width="200">
+				<h:outputText value="#{users.login}"/>
+			</p:column>
+			<p:column headerText="Email" width="200">
+				<h:outputText value="#{users.email}"/>
+			</p:column>
+			<p:column headerText="Ative"  width="100">
+				<h:outputText value="#{users.active ? 'Yes' : 'No'}"/>
+			</p:column>
+			<p:column  width="100">
+			<p:commandLink action="#{userCliniqueBean.edit(users)}"  style="color:blue;" update="userClinique_form">
+			<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+			</p:commandLink>
+				<p:commandLink  actionListener="#" oncomplete="PF('ConfirmationSupprimer').show();"  style="color:red; margin-left:20px" update="@form">
+		<p:graphicImage value="/resources/images/icon-delete.png"></p:graphicImage>
+		</p:commandLink>	
+			</p:column>
+		</p:dataTable>	
+<br/>
+ <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_xls.png"/>
+                <p:dataExporter type="xls" target="table-medecins" fileName="medecins" />
+    </h:commandLink>
+
+	 <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_pdf.png"></p:graphicImage>
+                <p:dataExporter type="pdf" target="table-medecins" fileName="medecins" encoding="iso-8859-1"/>
+    </h:commandLink>
+
+<p:confirmDialog
+ message="voulez vous vraiment supprimer l'element #{operationBean.operationSupp.nom}?"
+widgetVar="ConfirmationSupprimer">
+<p:commandButton value="Oui" action="#{operationBean.delete()}" oncomplete="PF('ConfirmationSupprimer').hide();" update="@form"/>
+<p:commandButton value="Non" oncomplete="PF('ConfirmationSupprimer').hide();" ></p:commandButton>
+</p:confirmDialog>
+
+</p:panel>
+
+<p:panel header="Ajouter nouveau médecin" id="list-userClinique-panel" rendered="#{userCliniqueBean.userClinique != null}">
+
+<p:panelGrid columns="2" style="margin-bottom:10px;">
+			
+						<h:outputLabel value="image: " />
+					<p:fileUpload fileUploadListener="#{userCliniqueBean.enviarFoto}"  auto="false" label="Parcourir.."
+					update="pg-text-preview pg-image-preview" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+					invalidFileMessage="Format invalide" multiple="true" sizeLimit="1000000" dragDropSupport="true" mode="advanced" />
+			
+				<h:panelGroup id="pg-text-preview">
+				<h:outputLabel value="Preview: " rendered="#{userCliniqueBean.userClinique.photo != null}"/>
+				</h:panelGroup>
+			<h:panelGroup id="pg-image-preview">
+<p:graphicImage  value="#{userCliniqueBean.userClinique.image}" cache="false" style="width:100px; height:100px;" rendered="#{userCliniqueBean.userClinique.photo != null}" ></p:graphicImage>			</h:panelGroup>
+			<h:outputLabel value="Nom:"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.nom}" size="30"/>
+			<h:outputLabel value="Email"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.email}" size="30"/>
+			<h:outputLabel value="Specialité"/>
+			<p:inputText value="#{userCliniqueBean.userClinique.logo}" size="30"/>
+			<h:outputLabel value="Ative:"/>
+			<p:selectBooleanCheckbox value="#{userCliniqueBean.userClinique.active}" size="30"/>
+		</p:panelGrid>
+		
+		<p:commandButton value="Enregister" icon="save-icon" action="#{userCliniqueBean.save()}"
+			update="userClinique_form"/>
+		<p:commandButton value="Annuler" icon="undo-icon" action="#{userCliniqueBean.cancel()}"
+			update="userClinique_form" style="margin-left:8px;"/>
+
+
+</p:panel>
+
+</html>

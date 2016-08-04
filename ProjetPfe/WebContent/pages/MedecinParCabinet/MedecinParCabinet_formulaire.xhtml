@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="Medecin" id="list-medecins-panel" rendered="#{medecinBean.medecin != null}">
+<p:panelGrid columns="2">
+<h:outputLabel value="image: " />
+		<p:fileUpload fileUploadListener="#{medecinBean.enviarFoto}"  auto="false" label="Parcourir.."
+		update="pg-text-preview pg-image-preview" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+		invalidFileMessage="Format invalide" multiple="true" sizeLimit="1000000" dragDropSupport="true" mode="advanced" />
+
+	<h:panelGroup id="pg-text-preview">
+	<h:outputLabel value="Preview: " rendered="#{medecinBean.medecin.photo != null}"/>
+	</h:panelGroup>
+<h:panelGroup id="pg-image-preview">
+		<p:graphicImage  value="#{medecinBean.medecin.image}" cache="false" style="width:100px; height:100px;" rendered="#{medecinBean.medecin.photo != null}" ></p:graphicImage>
+</h:panelGroup>
+<h:outputLabel value="Nom: " />
+<p:inputText  value="#{medecinBean.medecin.nom}"></p:inputText>
+<h:outputLabel value="email: " />
+<p:inputText  value="#{medecinBean.medecin.email}"></p:inputText>
+<h:outputLabel value="CIN: " />
+<p:inputText  value="#{medecinBean.medecin.CIN}"></p:inputText>
+<h:outputLabel value="Telephone" />
+<p:inputMask value="#{medecinBean.medecin.numTel}" mask="(99)9?99999999" /> 
+
+<h:outputLabel value="Date de naissance" />
+<p:calendar value="#{medecinBean.medecin.dateN}" pattern="dd/MM/yyyy" maxdate="#{medecinBean.dateActual()}" navigator="true" yearRange="1950:2020"/>
+<h:outputLabel value="Active" />
+<p:selectBooleanCheckbox value="#{medecinBean.medecin.active}"></p:selectBooleanCheckbox>
+
+</p:panelGrid>
+<br/>
+<p:commandButton icon="save-icon" value="save" action="#{medecinBean.save}" update="medecin_form" id="save-btn"></p:commandButton>
+<p:commandButton icon="undo-icon" value="Cancel" immediate="true" update="medecin_form" action="#{medecinBean.voltar}"/>
+
+</p:panel>
+
+
+</html>

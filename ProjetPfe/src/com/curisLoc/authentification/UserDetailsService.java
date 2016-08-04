@@ -1,0 +1,19 @@
+package com.curisLoc.authentification;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service("userDetailsService")
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+	
+	
+	@Transactional
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+				return null;
+	}
+	
+
+}

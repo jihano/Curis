@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="List medecins users" >
+<br />
+<p:commandButton value="ajouter" action="#{userMedecinBean.newUserMedecin()}" update="userMedecin_form"></p:commandButton>
+<br/> <br/>
+
+<p:dataTable value="#{userMedecinBean.usersMedecin}" var="users"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+			id="table-medecins">
+			
+			<p:column style="text-align:center">
+			<p:graphicImage value="#{userMedecinBean.imageMedecin}" width="40"
+			height="60" cache="false" rendered="#{users.photo != null}">
+					<f:param name="id_Medecin" value="#{users.id}" />
+			</p:graphicImage>
+			</p:column>
+			
+			<p:column  sortBy="#{users.nom}" filterBy="#{users.nom}" filterMatchMode="contains">
+				<h:outputLink id="photo" value="#">
+				<h:outputText value="#{users.nom}" />
+				</h:outputLink>
+				<p:tooltip id="toolTipFoto" for="photo" 
+				showEffect="clip" hideEffect="slide" >
+				<p:graphicImage value="#{userMedecinBean.imageMedecin}" width="160"
+					height="150" cache="false" rendered="#{users.photo != null}">
+					<f:param name="id_Medecin" value="#{users.id}" />
+				</p:graphicImage>
+				<h:outputText value="pas de Photo" rendered="#{users.photo == null}"/>
+				</p:tooltip>
+			</p:column>
+			
+			
+			<p:column headerText="Nom" width="250">
+				<h:outputText value="#{users.nom}"/>
+			</p:column>
+			<p:column headerText="Login">
+				<h:outputText value="#{users.login}"/>
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{users.email}"/>
+			</p:column>
+			<p:column headerText="Ative" width="80">
+				<h:outputText value="#{users.active ? 'Yes' : 'No'}"/>
+			</p:column>
+			
+			<p:column headerText="specialite">
+				<h:outputText value="#{users.specialite.nom}"/>
+			</p:column>
+		
+			<p:column width="50">
+			<p:commandLink action="#{userMedecinBean.edit(users)}"  style="color:blue;" update="userMedecin_form">
+			<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+			</p:commandLink>
+					
+			</p:column>
+		</p:dataTable>	
+
+</p:panel>
+<p:panel header="Medecin users" id="list-userMedecin-panel" rendered="#{userMedecinBean.userMedecin != null}">
+<p:outputLabel value=""></p:outputLabel>
+<p:panelGrid columns="2" style="margin-bottom:10px;">
+
+		<h:outputLabel value="image: " />
+		<p:fileUpload fileUploadListener="#{userMedecinBean.enviarFoto}"  auto="false" label="Parcourir.."
+		update="pg-text-preview pg-image-preview" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+		invalidFileMessage="Format invalide" multiple="true" sizeLimit="1000000" dragDropSupport="true" mode="advanced" />
+
+	<h:panelGroup id="pg-text-preview">
+	<h:outputLabel value="Preview: " rendered="#{userMedecinBean.userMedecin.photo!= null}"/>
+	</h:panelGroup>
+<h:panelGroup id="pg-image-preview">
+		<p:graphicImage  value="#{userMedecinBean.userMedecin.image}" cache="false" style="width:100px; height:100px;" rendered="#{userMedecinBean.userMedecin.photo != null}" ></p:graphicImage>
+</h:panelGroup>
+
+			<h:outputLabel value="Nom:"/>
+			<p:inputText value="#{userMedecinBean.userMedecin.nom}" size="30"/>
+			<h:outputLabel value="Email"/>
+			<p:inputText value="#{userMedecinBean.userMedecin.email}" size="30"/>
+			
+			<h:outputLabel value="Ative:"/>
+			<p:selectBooleanCheckbox value="#{userMedecinBean.userMedecin.active}"/>
+			<h:outputLabel value="specialite"/>
+				<p:selectOneMenu id="specialite" value="#{userMedecinBean.userMedecin.specialite}" converter="speciliteConverter" >
+			<f:selectItem itemLabel=":: selectionner ::" itemValue="#{null}"/>
+			<f:selectItems value="#{userMedecinBean.specialite}" var="sp" itemLabel="#{sp.nom}" itemValue="#{sp}"/>
+			</p:selectOneMenu>
+			
+		</p:panelGrid>
+	
+		<p:commandButton value="Enregister" icon="save-icon" action="#{userMedecinBean.save()}"
+			update="userMedecin_form" style="margin-right:40px;"/> 
+		<p:commandButton value="Annuler" icon="undo-icon" action="#{userMedecinBean.cancel()}"
+			update="userMedecin_form" style="margin-left:8px;"/>
+
+
+</p:panel>
+
+
+</html>

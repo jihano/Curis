@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="../../resources/js/googlechart.js"></script>  
+    </h:head>
+    <h:body>
+<div >
+	
+    <p:ring id="basic" value="#{rendezvousBean.listerv}" var="car" >
+    <p:graphicImage name="images/new.png" width="100%"
+height="100%" />
+        <p:outputPanel style="text-align: center;" layout="block">
+            
+            <br />
+            <p:commandButton update=":dash_form:carDetail" icon="ui-icon-search" title="View" oncomplete="PF('carDialog').show();">
+                <f:setPropertyActionListener value="#{car}" target="#{rendezvousBean.rvSelectione}" />
+            </p:commandButton>
+        </p:outputPanel>
+    </p:ring>
+    
+    <p:dialog header="Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="170">
+        <p:outputPanel id="carDetail" style="text-align:center;" layout="block">
+            <p:panelGrid  columns="1" rendered="#{not empty rendezvousBean.rvSelectione}" columnClasses="value">
+                <f:facet name="header">
+                    <p:graphicImage name="images/time-and-money.gif" width="100%"
+height="100%" /> 
+                </f:facet>
+ 				
+                <h:outputText value="#{rendezvousBean.rvSelectione.dateRd}" >
+
+		<f:convertDateTime pattern="HH:mm"/>
+	</h:outputText>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+    
+ 
+				
+				<div class="clearfix"> </div>
+			
+	</div>
+<!-- //banner-bottom -->
+<!-- history -->
+	<div class="history">
+		<div class="container">
+			<div class="history-grids">
+				<div class="col-md-6 history-grid-left">
+					<h3>Bienvenus <p:outputLabel value="#{authenticationContext.getUsuarioLogado().getNom()}"></p:outputLabel></h3>
+					<p>bienvenus dans votre espace medecin. </p>
+			<p:graphicImage name="/images/6.jpg" width="550" height="310"  />
+			
+			</div>
+			
+				<div class="col-md-6 history-grid-right">
+					<h3>Liste des médecins</h3>
+					<div class="history-grid-right-grids">
+					<h:form id="form">
+<p:panel header="liste des réservation">
+		
+		<p:dataTable value="#{rendezvousBean.listerv}" var="emtp"
+			paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+		 
+			<p:column headerText="date">
+	<h:outputText value="#{emtp.dateRd}" >
+		<f:convertDateTime pattern="dd/MM/yyyy"/>
+	</h:outputText>
+	</p:column>
+			<p:column headerText="heur">
+	<h:outputText value="#{emtp.dateRd}" >
+		<f:convertDateTime pattern="HH:mm"/>
+	</h:outputText>
+
+		</p:column>
+		</p:dataTable>
+		</p:panel>
+    </h:form>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+<!-- //history -->
+		</h:body>			
+</html>

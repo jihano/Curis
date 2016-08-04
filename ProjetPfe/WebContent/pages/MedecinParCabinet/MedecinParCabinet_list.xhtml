@@ -1,0 +1,84 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<p:panel header="list medecins" rendered="#{userMedecinBean.userMedecin eq null}">
+<p:commandButton icon="add-icon" value="nouveau medecin" action="#{userMedecinBean.newUserMedecin()}"
+update="medecinpc_form" >
+ </p:commandButton><br/><br/>
+<p:dataTable value="#{userMedecinBean.usersMedecin}" var="medecins" 
+paginator="true" rows="5" rowsPerPageTemplate="5,10,15" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}  {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}"
+id="table-medecins">
+<p:column style="text-align:center">
+<p:graphicImage value="#{userMedecinBean.imageMedecin}" width="60"
+height="60" cache="false" rendered="#{medecins.photo != null}">
+		<f:param name="id_Medecin" value="#{medecins.id}" />
+</p:graphicImage>
+</p:column>
+
+<p:column  sortBy="#{medecins.nom}" filterBy="#{medecins.nom}" filterMatchMode="contains">
+	<h:outputLink id="photo" value="#">
+				<h:outputText value="#{medecins.nom}" />
+			</h:outputLink>
+	<p:tooltip id="toolTipFoto" for="photo" 
+				showEffect="clip" hideEffect="slide" >
+				<p:graphicImage value="#{userMedecinBean.imageMedecin}" width="180"
+					height="180" cache="false" rendered="#{medecins.photo != null}">
+					<f:param name="id_Medecin" value="#{medecins.id}" />
+				</p:graphicImage>
+				<h:outputText value="pas de Photo" rendered="#{medecins.photo == null}"/>
+			</p:tooltip>
+</p:column>
+<p:column headerText="email">
+	<h:outputText value="#{medecins.email}" />
+</p:column>
+<p:column headerText="date Naissance">
+	<h:outputText value="#{medecins.dateN}" >
+		<f:convertDateTime pattern="dd/MM/yyyy"/>
+	</h:outputText>
+</p:column>
+<p:column headerText="CIN">
+	<h:outputText value="#{medecins.CIN}" />
+</p:column>
+<p:column headerText="Telephone">
+	<h:outputText value="#{medecins.numTel}" />
+</p:column>
+<p:column headerText="Active">
+	<h:outputText value="#{medecins.active ? 'Yes' : 'No'}" />
+</p:column>
+<p:column style="text-align:center;" exportable="false">
+<p:commandLink action="#{medecinBean.update(medecins)}"  style="color:blue;" update="medecin_form" >
+<p:graphicImage value="/resources/images/icon-edit.png"></p:graphicImage>
+</p:commandLink>
+<p:commandLink  actionListener="#" oncomplete="PF('ConfirmationSupprimer').show();"  style="color:red; margin-left:20px" update="@form">
+<p:graphicImage value="/resources/images/icon-delete.png"></p:graphicImage>
+
+</p:commandLink>
+
+</p:column>
+
+</p:dataTable>
+<br/>
+
+    <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_xls.png"/>
+                <p:dataExporter type="xls" target="table-medecins" fileName="Medecins" />
+    </h:commandLink>
+
+	 <h:commandLink >
+                <p:graphicImage value="/resources/images/icon_pdf.png"></p:graphicImage>
+                <p:dataExporter type="pdf" target="table-medecins" fileName="Medecins" encoding="iso-8859-1"/>
+    </h:commandLink>
+<p:confirmDialog
+ message="voulez vous vraiment supprimer l'element ?"
+widgetVar="ConfirmationSupprimer">
+<p:commandButton value="Yes" action="#" oncomplete="PF('ConfirmationSupprimer').hide();" update="@form"/>
+<p:commandButton value="No" oncomplete="PF('ConfirmationSupprimer').hide();" ></p:commandButton>
+</p:confirmDialog>
+</p:panel>
+
+</html>

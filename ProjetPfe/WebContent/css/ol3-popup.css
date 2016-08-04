@@ -1,0 +1,82 @@
+.ol-popup {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    padding: 15px;
+    border: 2px solid #0000ff;
+    border-radius:5px;
+    bottom: 12px;
+    left: -50px;
+	color:black;
+	font-size: 10px;
+	border-radius:5px;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+    
+}
+
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+    
+}
+
+.ol-popup-content {
+    min-width: 200px;
+	/*
+    max-height: 200px;
+    overflow-x: auto;
+	*/
+	
+}
+
+.ol-popup-closer {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 65%;
+    padding: 0 4px;
+    color: black;
+    text-decoration: none;
+}
+
+.ol-popup-closer:after {
+    content: "[X]";
+}
+
+.ol-popup div.infoResult {
+    min-width: 130px;
+   
+}
+
+.ol-popup div.infoResult p {
+    padding: 0.1em;
+    margin: 0;
+}
+
+.ol-popup-content h3 {
+    margin: 0.25em 0;
+    
+}
+
+.ol-popup.marker {
+    margin-bottom: 30px;
+}
